@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include("../partials/metadata", {
+        title: "Login"
+    }); %>
+
+    <script src="/static/scripts/login.js"></script>
+</head>
+<body class="center-content">
+    <div class="modal-window">
+        <h1 class="mb-4">Login</h1>
+
+        <div id="error" class="alert alert-danger hidden"></div>
+
+        <form onsubmit="onLoginSubmit(event)">
+            <div class="mb-3">
+                <label class="form-label" required>Username or Email Address</label>
+                <input type="text" class="form-control" id="identifier">
+            </div>
+            <div class="mb-4">
+                <label class="form-label" required>Password</label>
+                <input type="password" class="form-control" id="password">
+            </div>
+            <button type="submit" class="btn btn-primary">Login <span id="loading" class="spinner-border spinner-border-sm hidden" style="margin-left: 0.3rem;"></span></button>
+            <span style="margin-left: 1.0rem;"><a href="/register">Create an account</a></span>
+        </form>
+    </div>
+</body>
+</html>

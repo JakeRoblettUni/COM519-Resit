@@ -1,0 +1,22 @@
+body {
+    min-height: 100vh;
+    overflow-y: scroll;
+}
+
+.center-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-window {
+    width: 100%;
+    max-width: 30rem;
+    margin: 0 auto;
+    padding: 1.0rem;
+}
+
+.hidden {
+    display: none !important;
+}

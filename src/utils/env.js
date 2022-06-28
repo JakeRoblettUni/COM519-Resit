@@ -16,4 +16,6 @@ function env(key, fallback=undefined) {
 module.exports = {
     PORT: env("PORT"),
     MONGODB_URI: env("MONGODB_URI"),
+    JWT_SECRET: env("JWT_SECRET"),
+    BCRYPT_ROUNDS: parseInt(env("BCRYPT_ROUNDS")),
 };
