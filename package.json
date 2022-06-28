@@ -1,0 +1,28 @@
+{
+  "name": "com518-resit",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JakeRoblettUni/COM519-Resit.git"
+  },
+  "author": "Jake Roblett",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JakeRoblettUni/COM519-Resit/issues"
+  },
+  "homepage": "https://github.com/JakeRoblettUni/COM519-Resit#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.4.1"
+  }
+}
