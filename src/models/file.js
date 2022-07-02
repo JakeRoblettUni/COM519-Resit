@@ -1,25 +1,26 @@
 const mongoose = require("mongoose");
 
 const schema = new mongoose.Schema({
-    username: { 
+    name: { 
         type: String, 
-        unique: true, 
         required: true,
     },
-    email: { 
-        type: String, 
-        unique: true, 
-        required: true,
-    },
-    passwordHash: {
+    slug: {
         type: String,
-        required: true,
-        select: false,
     },
-    homeDirectory: {
+    owner: {
+        type: "ObjectId",
+        ref: "User",
+        required: true,
+    },
+    directory: {
         type: "ObjectId",
         ref: "Directory",
-    }
+        required: true,
+    },
+    description: {
+        type: String,
+    },
 }, {
     timestamps: {
         createdAt: "createdAt",
@@ -27,4 +28,4 @@ const schema = new mongoose.Schema({
     },
 });
 
-module.exports = mongoose.model("User", schema);
+module.exports = mongoose.model("File", schema);

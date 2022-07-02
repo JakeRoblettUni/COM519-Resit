@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const env = require("../utils/env");
 const { HttpError } = require("../utils/errors");
 const User = require("../models/user");
+const Directory = require("../models/directory");
 
 module.exports = function(req, res, next) {
     
@@ -94,6 +95,15 @@ module.exports = function(req, res, next) {
                 email,
                 passwordHash: await bcrypt.hash(password, env.BCRYPT_ROUNDS),
             });
+
+            let homeDirectory = await Directory.create({
+                name: "Home",
+                slug: "",
+                owner: user._id,
+            });
+
+            user.homeDirectory = homeDirectory._id;
+            await user.save();
 
             return user;
         } catch(err) {

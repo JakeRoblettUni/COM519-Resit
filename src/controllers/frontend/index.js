@@ -3,7 +3,10 @@ const { HttpError } = require("../../utils/errors");
 const router = express.Router();
 module.exports = router;
 
+router.use(require("../../middleware/auth"));
+
 router.use(require("./auth"));
+router.use(require("./files"));
 
 router.get("/", (req, res) => {
     res.render("index");
