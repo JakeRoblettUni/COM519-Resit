@@ -51,7 +51,7 @@ router.get(["/files", "/files/*"], wrap(async (req, res) => {
 }));
 
 router.get(["/file/:id", "/share/:share"], wrap(async (req, res) => {
-    let user = await req.authenticate();
+    let user = await req.authenticate({ optional: req.params.share ? true : false });
 
     let file;
     let share;
@@ -69,7 +69,7 @@ router.get(["/file/:id", "/share/:share"], wrap(async (req, res) => {
     if(!file)
         throw new HttpError(404, "File not found");
 
-    if(!file.owner.equals(user._id))
+    if(!share && !file.owner.equals(user._id))
         throw new HttpError(403, "You do not have permission to access this file");
 
     let fileshares = await FileShare.find({ file: file._id }).populate("owner");
@@ -80,7 +80,7 @@ router.get(["/file/:id", "/share/:share"], wrap(async (req, res) => {
 }));
 
 router.get(["/file/:id/download", "/share/:share/download"], wrap(async (req, res) => {
-    let user = await req.authenticate();
+    let user = await req.authenticate({ optional: req.params.share ? true : false });
 
     let file;
     let share;
@@ -98,8 +98,8 @@ router.get(["/file/:id/download", "/share/:share/download"], wrap(async (req, re
     if(!file)
         throw new HttpError(404, "File not found");
 
-    if(!file.owner.equals(user._id))
-        throw new HttpError(403, "You do not have permission to access this file");
+    if(!share && !file.owner.equals(user._id))
+        throw new HttpError(403, "You do not have permission to download this file");
 
     let filepath = `./data/${file._id}`;
 

@@ -24,6 +24,9 @@ module.exports = function(req, res, next) {
         }
 
         if(!token) {
+            if(opts.optional)
+                return null;
+
             throw new HttpError(401, "No authorization was provided");
         }
 
@@ -44,14 +47,6 @@ module.exports = function(req, res, next) {
 
         if(!user) {
             throw new HttpError(401, "User is invalid or the account no longer exists");
-        }
-
-        if(opts.verifyPassword === true) {
-            if(opts.password === null || opts.password === undefined)
-                throw new HttpError(400, "A password is required to verify this request");
-
-            if(!await bcrypt.compare(opts.password, user.passwordHash))
-                throw new HttpError(401, "Password is incorrect");
         }
 
         user.passwordHash = undefined;

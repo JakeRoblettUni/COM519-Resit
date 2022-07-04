@@ -17,6 +17,33 @@
 
         <% }; %>
 
+        <% 
+        let parts = file.name.split(".");
+        let extension = parts[parts.length - 1];
+
+        let filetype = "unknown";
+
+        switch(extension) {
+            case "jpg":
+            case "jpeg":
+            case "gif":
+            case "webp":
+            case "png": filetype = "image"; break;
+        }
+        %>
+
+        <div class="mt-4">
+            <% if(filetype === "image") { %>
+                <% if(share) { %>
+                    <img src="/share/<%= share._id %>/download" alt="<%= file.name %>" style="max-width: 70%; width: 40rem;">
+                    <% } else { %>
+                    <img src="/file/<%= file._id %>/download" alt="<%= file.name %>" style="max-width: 70%; width: 40rem;">
+                <% }; %>
+            <% } else { %>
+                <i>No preview available for this type of file</i>
+            <% }; %>
+        </div>
+
         <div class="mt-4">
             <a href="/file/<%= file._id %>/download" class="btn btn-primary">Download</a>
         </div>
