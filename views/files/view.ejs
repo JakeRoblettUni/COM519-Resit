@@ -11,7 +11,10 @@
     <div class="container">
         <h1 class="mt-5"><%= file.name %></h1>
 
-        
+        <div class="mt-4">
+            <a href="/file/<%= file._id %>/download" class="btn btn-primary">Download</a>
+            <a href="/file/<%= file._id %>/delete" class="btn btn-danger">Delete</a>
+        </div>
     </div>
 </body>
 </html>

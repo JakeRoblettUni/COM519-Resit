@@ -4,6 +4,7 @@ const router = express.Router();
 module.exports = router;
 
 router.use(require("../../middleware/auth"));
+router.use(require("../../middleware/provided"));
 
 router.use(require("./auth"));
 router.use(require("./files"));
