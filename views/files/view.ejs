@@ -11,10 +11,88 @@
     <div class="container">
         <h1 class="mt-5"><%= file.name %></h1>
 
+        <% if(share) { %>
+            <i>Shared by <%= share.owner.username %></i>
+        <% } else { %>
+
+        <% }; %>
+
         <div class="mt-4">
             <a href="/file/<%= file._id %>/download" class="btn btn-primary">Download</a>
-            <a href="/file/<%= file._id %>/delete" class="btn btn-danger">Delete</a>
         </div>
+            
+        <% if(!share) { %>
+            <hr>
+
+            <h2>Details</h2>
+            
+            <div class="mt-4">
+                <form method="POST" action="/file/<%= file._id %>/edit">
+                    <div class="mb-3">
+                        <label class="form-label" required>Name</label>
+                        <input type="text" class="form-control" name="name" value="<%= file.name %>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" required>Path</label>
+                        <input type="text" class="form-control" name="path" value="<%= file.path %>" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label" required>Description</label>
+                        <textarea class="form-control" name="description" rows="5"><%= file.description %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+
+            <hr>
+
+            <h2>Sharing</h2>
+
+            <div class="mt-4">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Link</th>
+                            <th>Creator</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let fileshare of fileshares) { %>
+                            <tr>
+                                <td>
+                                    <a href="/share/<%= fileshare._id %>"><%= fileshare._id %></a>
+                                </td>
+                                <td>
+                                    <%= fileshare.owner.username %>
+                                </td>
+                                <td>
+                                    <form method="POST" action="/share/<%= fileshare._id %>/delete">
+                                        <button class="btn btn-danger" title="Revoke sharing link"><i class="bi bi-trash"></i></button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <% }; %>
+                    </tbody>
+                </table>
+
+                <form method="POST" action="/file/<%= file._id %>/share">
+                    <button type="submit" class="btn btn-primary">Create Share Link</button>
+                </form>
+            </div>
+
+            <hr>
+
+            <h2>Actions</h2>
+
+            <div class="mt-4">
+                <form method="POST" action="/file/<%= file._id %>/delete">
+                    <button class="btn btn-danger">Delete File</button>
+                </form>
+            </div>
+        <% } else { %>
+            <textarea class="form-control mt-4" rows="5" disabled><%= file.description %></textarea>
+        <% }; %>
     </div>
 </body>
 </html>
