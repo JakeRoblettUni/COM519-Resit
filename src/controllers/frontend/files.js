@@ -217,3 +217,13 @@ router.post("/upload-file", wrap(async (req, res) => {
 
     res.redirect(`/file/${fileObj._id}`);
 }));
+
+router.get("/search", wrap(async (req, res) => {
+    let user = await req.authenticate();
+
+    let query = req.query.query || "";
+
+    let files = await File.find({ owner: user._id, $text: { $search: query }});
+
+    res.render("files/search", { user, query, files });
+}));

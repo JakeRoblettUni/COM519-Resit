@@ -23,4 +23,6 @@ const schema = new mongoose.Schema({
     },
 });
 
+schema.index({ name: "text", description: "text" });
+
 module.exports = mongoose.model("File", schema);

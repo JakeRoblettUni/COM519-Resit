@@ -11,7 +11,33 @@
     <div class="container">
         <h1 class="mt-5">Search</h1>
 
-        
+        <form method="GET" action="/search" style="display: flex; flex-direction: row;">
+            <input type="text" class="form-control" name="query" value="<%= query %>" style="flex-grow: 1;">
+            <button class="btn btn-primary">Search</button>
+        </form>
+
+        <% if(query) { %>
+            <b><%= files.length %> results found</b>
+        <% }; %>
+
+        <% if(files.length > 0) { %>
+            <table class="table mt-4">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% for(let file of files) { %>
+                        <tr>
+                            <td><a href="/file/<%= file._id %>"><%= file.name %></a></td>
+                            <td><%= file.description %></td>
+                        </tr>
+                    <% }; %>
+                </tbody>
+            </table>
+        <% }; %>
     </div>
 </body>
 </html>
