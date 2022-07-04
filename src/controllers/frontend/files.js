@@ -3,20 +3,36 @@ const wrap = require("../../utils/wrap");
 const router = express.Router();
 module.exports = router;
 
-const Directory = require("../../models/directory");
+const File = require("../../models/file");
 
 router.get(["/files", "/files/*"], wrap(async (req, res) => {
     let user = await req.authenticate();
-    let homeDirectory = await Directory.findById(user.homeDirectory);
+    let path = req.params[0] || "";
 
-    let path = req.params[0]?.split("/") || [];
+    if(!path.startsWith("/"))
+        path = "/" + path;
 
-    let workingDirectory = homeDirectory;
-    let directories = await Directory.find({ parent: homeDirectory._id, owner: user._id });
+    let allFiles = await File.find({ owner: user._id });
 
-    res.render("files/directory", {
-        workingDirectory,
-        directories,
-        files: []
+    let files = [];
+    let folders = [];
+
+    for(let file of allFiles) {
+        if(path === file.path + file.name) {
+            
+        }
+
+        if(!folders.includes(file.path) && file.path.startsWith(path) && file.path !== path)
+            folders.push(file.path.substring(path.length));
+        
+        if(file.path === path)
+            files.push(file);
+    }
+
+    res.render("files/list", {
+        user,
+        files,
+        folders,
+        path,
     });
 }));

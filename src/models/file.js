@@ -5,17 +5,12 @@ const schema = new mongoose.Schema({
         type: String, 
         required: true,
     },
-    slug: {
+    path: {
         type: String,
     },
     owner: {
         type: "ObjectId",
         ref: "User",
-        required: true,
-    },
-    directory: {
-        type: "ObjectId",
-        ref: "Directory",
         required: true,
     },
     description: {

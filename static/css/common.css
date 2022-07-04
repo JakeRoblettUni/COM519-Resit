@@ -20,3 +20,7 @@ body {
 .hidden {
     display: none !important;
 }
+
+tr:not(:hover) .show-on-table-hover {
+    visibility: hidden;
+}

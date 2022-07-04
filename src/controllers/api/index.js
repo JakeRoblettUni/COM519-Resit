@@ -8,6 +8,10 @@ router.use(require("../../middleware/provided"));
 
 router.use(require("./auth"));
 
+router.all("*", (req, res) => {
+    throw new HttpError(400, "Requested endpoint does not exist");
+});
+
 router.use((err, req, res, next) => {
     if(err.httpStatus) {
         res.api.failure(err.httpStatus, err.message);

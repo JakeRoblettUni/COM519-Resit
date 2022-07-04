@@ -9,18 +9,18 @@ async function main() {
     // IMPORTS
     let User = require("./models/user");
     let File = require("./models/file");
-    let Directory = require("./models/directory");
 
     // =============================================== //
     // CODE
 
-    let dir = await Directory.create({
-        name: "Nested Further",
-        slug: "nested-further",
-        owner: "62bd9eee2a734c1849841bca",
-        parent: "62bda090234f34297492e11b",
+    let file = await File.create({
+        name: "file6.txt",
+        slug: "file6.txt",
+        path: "/dir-1/subdir-1",
+        owner: "62c1e518431071dadfe041eb",
     });
-    console.log(dir);
+
+    console.log(file);
     
     // =============================================== //
 
